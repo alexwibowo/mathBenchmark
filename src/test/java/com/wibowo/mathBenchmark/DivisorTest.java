@@ -13,11 +13,6 @@ public class DivisorTest {
 
     private static final double EPSILON = Math.pow(10, -16);
 
-    @DataPoints("divisor")
-    public static int[] divisors = new int[]{
-            10, 100, 1000, 10000
-    };
-
     @DataPoints("dividend")
     public static double[] dividend = new double[]{
             Math.PI, 10.00, 3.11, 2.95
@@ -26,10 +21,9 @@ public class DivisorTest {
 
     @Theory
     public void test_division_using_two_mechanism(
-            final @FromDataPoints("dividend") double dividend,
-            final @FromDataPoints("divisor") int divisor) {
-        final double normalVersion = new Divisor().normalDivision(dividend, divisor);
-        final double multiplicationVersion = new Divisor().divisionUsingMultiplication(dividend, divisor);
+            final @FromDataPoints("dividend") double dividend) {
+        final double normalVersion = new Divisor().normalDivision(dividend);
+        final double multiplicationVersion = new Divisor().divisionUsingMultiplication(dividend);
         assertEquals(
                 "Expect normal division [" + normalVersion + "] to be equal to multiplication [" + multiplicationVersion + "]",
                 normalVersion, multiplicationVersion, EPSILON
